@@ -1,0 +1,13 @@
+name: vitix
+version: 0.1.0
+
+authors:
+  - Florius <j@florius.com.ar>
+
+targets:
+  vitix:
+    main: src/vitix.cr
+
+crystal: 0.22.0
+
+license: MIT
