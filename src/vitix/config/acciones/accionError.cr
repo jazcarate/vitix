@@ -1,5 +1,5 @@
 class AccionError
-  def ejecutar
+  def ejecutar(internet)
     RespuestaError.new
   end
 end

@@ -1,6 +1,9 @@
 class RespuestaCorrecta
+  def initialize(@contenido : String)
+  end
+  
   def contenido
-    "<h1>Hola! soy TuGoogle</h1>"
+    @contenido
   end
 
   def estado
