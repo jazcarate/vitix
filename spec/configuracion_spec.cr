@@ -15,17 +15,5 @@ describe Configuracion do
         unaRegla.should_not eq otraRegla
       end
     end
-    context "una más probable que otra" do
-      it "deberia elegir siempre la misma" do
-        configuracion = Configuracion.new
-        configuracion.que cuandoEntroA: "/foo", vayaA: "unServidor", conProbabilidad: 10
-        configuracion.que cuandoEntroA: "/foo", vayaA: "otroServidor"
-
-        unaAccion = configuracion.transformar "/foo"
-        otraAccion = configuracion.transformar "/foo"
-
-        unaAccion == otraAccion
-      end
-    end
   end
 end
