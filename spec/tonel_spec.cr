@@ -1,17 +1,13 @@
 require "./spec_helper"
 
-def unTonel(config : Configuracion)
-  Tonel.new(config, InternetDeMentira.new({
-    "miGoogle" => "<h1>Hola! soy TuGoogle</h1>",
-    "otroLado" => "<h1>Hola! soy otro lado</h1>"
-  }))
-end
-
 describe Tonel do
   describe "#transform/1" do
     context "cuando no configuras nada" do
       it "deberia responder un error 404 si enctro a cualqueir lado" do
-        unTonel(Configuracion.new).transformar("/CualquierCosa").estado.should eq 404
+        respuesta = Tonel.new(Configuracion.new, InternetDeMentira.new).transformar("/CualquierCosa")
+
+        respuesta.estado.should eq 404
+        respuesta.contenido.should contain "No había ninguna regla!"
       end
     end
 
@@ -20,7 +16,11 @@ describe Tonel do
         configuracion = Configuracion.new
         configuracion.que cuandoEntroA: "/foo", vayaA: "miGoogle"
 
-        respuesta= unTonel(configuracion).transformar("/foo")
+        internet = InternetDeMentira.new({
+          "miGoogle" => "<h1>Hola! soy TuGoogle</h1>",
+        })
+
+        respuesta= Tonel.new(configuracion, internet).transformar("/foo")
         respuesta.estado.should eq 200
         respuesta.contenido.should eq "<h1>Hola! soy TuGoogle</h1>"
       end
@@ -30,7 +30,11 @@ describe Tonel do
         configuracion = Configuracion.new
         configuracion.que cuandoEntroA: "/bar", vayaA: "miGoogle"
 
-        respuesta= unTonel(configuracion).transformar("/bar")
+        internet = InternetDeMentira.new({
+          "miGoogle" => "<h1>Hola! soy TuGoogle</h1>",
+        })
+
+        respuesta= Tonel.new(configuracion, internet).transformar("/bar")
         respuesta.estado.should eq 200
         respuesta.contenido.should eq "<h1>Hola! soy TuGoogle</h1>"
       end
@@ -40,10 +44,27 @@ describe Tonel do
         configuracion = Configuracion.new
         configuracion.que cuandoEntroA: "/foo", vayaA: "otroLado"
 
-        respuesta= unTonel(configuracion).transformar("/foo")
+        internet = InternetDeMentira.new({
+          "otroLado" => "<h1>Hola! soy otro lado</h1>",
+        })
+
+        respuesta= Tonel.new(configuracion, internet).transformar("/foo")
         respuesta.estado.should eq 200
         respuesta.contenido.should eq "<h1>Hola! soy otro lado</h1>"
       end
+
+      context "pero `otroLado` devuelve un 404" do
+        it "deberia responderme un error" do
+          configuracion = Configuracion.new
+          configuracion.que cuandoEntroA: "/foo", vayaA: "otroLado"
+
+          internet = InternetDeMentira.new()
+
+          respuesta= Tonel.new(configuracion, internet).transformar("/foo")
+          respuesta.estado.should eq 404
+        end
+      end
     end
+
   end
 end

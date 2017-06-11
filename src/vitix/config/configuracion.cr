@@ -8,11 +8,15 @@ class Configuracion
   end
 
   def transformar(url)
-    reglaQueVa = @reglas.find &.puedoRedireccionar?(url)
+    reglaQueVa = elejirRegla url
     if reglaQueVa.is_a?(Nil)
-      AccionError.new
+      AccionDefault.new
     else
       AccionPegarleA.new(reglaQueVa.a)
     end
+  end
+
+  def elejirRegla(url)
+    (@reglas.select &.puedoRedireccionar?(url)).shuffle.first?
   end
 end

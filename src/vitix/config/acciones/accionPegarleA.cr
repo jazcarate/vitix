@@ -3,7 +3,11 @@ class AccionPegarleA
   end
 
   def ejecutar(internet)
-    contenido = internet.get(@url)
-    RespuestaCorrecta.new(contenido)
+    respuesta = internet.get(@url)
+    if respuesta.success?
+      Respuesta.new(respuesta.body, respuesta.status_code)
+    else
+      Respuesta.new(respuesta.status_message, respuesta.status_code)
+    end
   end
 end
