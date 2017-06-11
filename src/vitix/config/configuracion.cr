@@ -3,8 +3,13 @@ class Configuracion
     @reglas = [] of Regla
   end
 
-  def que(cuandoEntroA, vayaA)
+  def que(cuandoEntroA, vayaA, conProbabilidad = nil)
+    i=0
+    iteraciones = conProbabilidad ? conProbabilidad : 100- @reglas.size
+    while i < iteraciones
       @reglas<< Regla.new(cuandoEntroA, vayaA)
+      i+=1
+    end
   end
 
   def transformar(url)

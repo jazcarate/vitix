@@ -10,4 +10,8 @@ class AccionPegarleA
       Respuesta.new(respuesta.status_message, respuesta.status_code)
     end
   end
+
+  def ==(otraAccion : AccionPegarleA)
+    @url == otraAccion.@url
+  end
 end
