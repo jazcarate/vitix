@@ -24,6 +24,18 @@ describe Tonel do
         respuesta.estado.should eq 200
         respuesta.contenido.should eq "<h1>Hola! soy TuGoogle</h1>"
       end
+      it "deberia respetar los query params" do
+        configuracion = Configuracion.new
+        configuracion.que cuandoEntroA: "/foo", vayaA: "miGoogle"
+
+        internet = InternetDeMentira.new({
+          "miGoogle" => "<h1>Hola! soy TuGoogle</h1>",
+          "miGoogle?hola=yes" => "<h1>Holitas!</h1>",
+        })
+
+        respuesta= Tonel.new(configuracion, internet).transformar("/foo?hola=yes")
+        respuesta.contenido.should eq "<h1>Holitas!</h1>"
+      end
     end
     context "cuando configuro que `/bar` sea `miGoogle`" do
       it "deberia responderme con estado 200 y el contenido de miGoogle" do

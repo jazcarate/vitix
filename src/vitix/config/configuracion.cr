@@ -12,7 +12,7 @@ class Configuracion
     if reglaQueVa.is_a?(Nil)
       AccionDefault.new
     else
-      AccionPegarleA.new(reglaQueVa.a)
+      AccionPegarleA.new(reglaQueVa.a url)
     end
   end
 

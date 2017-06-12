@@ -1,5 +1,5 @@
 class Tonel
-  def initialize(@config : Configuracion, @unInternet : Internet)
+  def initialize(@config : Configuracion, @unInternet : Internet = Internet.new)
   end
 
   def transformar(url)

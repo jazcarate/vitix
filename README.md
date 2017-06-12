@@ -7,3 +7,6 @@ No se necesita nada más
 
 ## Uso
 `$ crystal run src/vitix.cr`
+
+## Tests
+`$ crystal spec`

@@ -3,10 +3,10 @@ class Regla
   end
 
   def puedoRedireccionar?(url)
-    @de == url
+    url.starts_with? @de
   end
 
-  def a
-    @a
+  def a(url)
+    url.sub(@de, @a)
   end
 end

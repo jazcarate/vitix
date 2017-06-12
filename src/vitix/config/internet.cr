@@ -1,8 +1,7 @@
 require "http/client"
 
-
 class Internet
   def get(url)
-    raise "No está implementado"
+    HTTP::Client.get url
   end
 end
