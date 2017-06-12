@@ -6,7 +6,9 @@ Para hacer correr `Crystal` hacen falta [un par de bibliotecas](https://github.c
 No se necesita nada más
 
 ## Uso
-`$ crystal run src/vitix.cr`
+`$ crystal run src/server.cr`
+
+Si da `bind: Address already in use (Errno)`, podes encontrar el proceso que tiene tomado el puerto: `lsof -ti:8080` y matarlo
 
 ## Tests
 `$ crystal spec`
