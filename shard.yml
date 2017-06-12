@@ -6,7 +6,7 @@ authors:
 
 targets:
   vitix:
-    main: src/vitix.cr
+    main: src/server.cr
 
 crystal: 0.22.0
 
