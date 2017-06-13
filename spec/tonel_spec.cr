@@ -97,7 +97,7 @@ describe Tonel do
       end
     end
     context "cuando hay dos reglas de una URL a dos servidores, uno que anda y uno que no" do
-      it "deberia responder un error 200 todas las veces" do
+      it "deberia responder 200 todas las veces" do
         configuracion = Configuracion.new
         regla = ReglaFactory.new.de("/foo").vallaA(["anda", "noAnda"]).build
         configuracion.agregarRegla regla
@@ -116,6 +116,27 @@ describe Tonel do
 
         respuesta=tonel.transformar("/foo")
         respuesta.estado.should eq 200
+      end
+      context "pero se cae el otro a la mitad" do
+        it "deberia empezar a responder 404" do
+          configuracion = Configuracion.new
+          regla = ReglaFactory.new.de("/foo").vallaA(["anda", "noAnda"]).build
+          configuracion.agregarRegla regla
+
+          internet = InternetDeMentira.new({
+            "anda" => "<h1>I'm alive</h1>",
+          })
+
+          tonel = Tonel.new(configuracion, internet)
+
+          respuesta=tonel.transformar("/foo")
+          respuesta.estado.should eq 200
+
+          internet.desconectar "anda"
+
+          respuesta=tonel.transformar("/foo")
+          respuesta.estado.should eq 404
+        end
       end
     end
 
