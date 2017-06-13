@@ -1,5 +1,6 @@
 # vitix
-Balanceador de carga para IASC 1C-2017
+Balanceador de carga para IASC 1C-2017.
+[El enunciado](https://docs.google.com/document/d/1hGKI62Sm0U0BmGuITR31SfEJEYz6LRKKzl7ptXFOrxA/pub)
 
 ## Instalacion
 Para hacer correr `Crystal` hacen falta [un par de bibliotecas](https://github.com/crystal-lang/crystal/wiki/All-required-libraries).

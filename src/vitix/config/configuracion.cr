@@ -1,22 +1,18 @@
 class Configuracion
-  def initialize
+  def initialize(@rand : Random = Random::DEFAULT)
     @reglas = [] of Regla
   end
 
-  def que(cuandoEntroA, vayaA)
-    @reglas<< Regla.new(cuandoEntroA, vayaA)
+  def agregarRegla(regla)
+    @reglas<< regla
   end
 
-  def transformar(url)
+  def transformar(internet, url)
     reglaQueVa = elejirRegla url
-    if reglaQueVa.is_a?(Nil)
-      AccionDefault.new
-    else
-      AccionPegarleA.new(reglaQueVa.a url)
-    end
+    reglaQueVa.a internet, url
   end
 
   def elejirRegla(url)
-    (@reglas.select &.puedoRedireccionar?(url)).shuffle.first?
+    @reglas.find(if_none: ReglaNoExiste.new) { |regla| regla.puedoRedireccionar?(url) }
   end
 end

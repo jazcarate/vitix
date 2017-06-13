@@ -3,6 +3,6 @@ class Tonel
   end
 
   def transformar(url)
-    @config.transformar(url).ejecutar @unInternet
+    @config.transformar(@unInternet, url)
   end
 end
