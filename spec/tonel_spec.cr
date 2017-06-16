@@ -10,6 +10,17 @@ describe Tonel do
         respuesta.contenido.should contain "No existe Regla"
       end
     end
+    context "no tenes servidores" do
+      it "deberia responder un error 404 si enctro a cualqueir lado" do
+        configuracion = Configuracion.new
+        regla = ReglaFactory.new.de("/foo").vallaA("miGoogle").build
+        configuracion.agregarRegla regla
+
+        respuesta = Tonel.new(configuracion, InternetDeMentira.new).transformar("/foo")
+
+        respuesta.estado.should eq 404
+      end
+    end
 
     context "cuando configuro que `/foo` sea `miGoogle`" do
       it "deberia responderme con estado 200 y el contenido de miGoogle" do

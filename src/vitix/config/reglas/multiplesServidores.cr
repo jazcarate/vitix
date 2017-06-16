@@ -3,7 +3,7 @@ class MultiplesServidores
   end
 
   def request(internet, endpoint)
-    intentar = RespuestaError.new
+    intentar = RespuestaError.new("No existe server")
     servidoresVivos.each { |servidor|
       intentar = servidor.request(internet, endpoint)
       break unless intentar.is_a? RespuestaError
@@ -12,6 +12,6 @@ class MultiplesServidores
   end
 
   private def servidoresVivos
-    @servidores.select &.vivo
+    @servidores.select(&.vivo).shuffle!
   end
 end

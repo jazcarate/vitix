@@ -3,7 +3,7 @@ require "./vitix"
 
 config = Configuracion.new
 
-regla = ReglaFactory.new.de("/foo").vallaA(["http://google.com", "http://google.com.ar"]).build
+regla = ReglaFactory.new.de("").vallaA(["localhost:4567", "localhost:7654"]).build
 config.agregarRegla regla
 
 tonel = Tonel.new config
