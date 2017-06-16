@@ -9,8 +9,8 @@ config.agregarRegla regla
 tonel = Tonel.new config
 
 server = HTTP::Server.new(8080) do |context|
-  puts "atendiendo coneccion de #{context.request.path}"
-  respuesta = tonel.transformar context.request.path
+  puts "atendiendo coneccion de #{context.request.resource}"
+  respuesta = tonel.transformar context.request.resource
   context.response.print respuesta.contenido
 end
 
