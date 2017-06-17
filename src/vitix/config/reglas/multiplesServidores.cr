@@ -12,6 +12,6 @@ class MultiplesServidores
   end
 
   private def servidoresVivos
-    @servidores.select(&.vivo).shuffle!
+    @servidores.select(&.vivo?).shuffle!
   end
 end
