@@ -1,0 +1,9 @@
+tonel:
+  tiempoMuerto: 20
+  reglas:
+    - desde: /foo
+      a:
+        - http://localhost:4567
+        - http://localhost:7654
+    - desde: /bar
+      a: https://crystal-lang.org

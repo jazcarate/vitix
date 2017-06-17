@@ -1,11 +1,7 @@
 require "http/server"
 require "./vitix"
 
-config = Configuracion.new
-
-regla = ReglaFactory.new.de("").vallaA(["localhost:4567", "localhost:7654"]).build
-config.agregarRegla regla
-
+config = ConfigReader.crear_config(File.read "./config.yaml")
 tonel = Tonel.new config
 
 server = HTTP::Server.new(8080) do |context|

@@ -1,7 +1,13 @@
 class UnServidor
+  @@tiempoMuerto=Time::Span.new Time::Span::TicksPerHour
+
   def initialize(@host : String)
     @vivo = true
     @cuandoMurio = Time.new(0)
+  end
+
+  def self.tiempoMuerto=(unTiempo)
+    @@tiempoMuerto = Time::Span.new unTiempo*Time::Span::TicksPerSecond
   end
 
   def request(internet, endpoint)
@@ -27,8 +33,8 @@ class UnServidor
   end
 
   private def chekear_cuando_murio
-    if !@vivo && @cuandoMurio < Time.now + Time::Span.new 0, 0, 10
-      puts "reviviendo #{@host}!"
+    if !@vivo && @cuandoMurio + @@tiempoMuerto < Time.now
+      puts "reviviendo #{@host}?"
       @vivo = true
     end
   end

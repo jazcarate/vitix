@@ -1,4 +1,5 @@
 class Regla
+  getter de, a
   def initialize(@de : String, @a : MultiplesServidores | UnServidor)
   end
 

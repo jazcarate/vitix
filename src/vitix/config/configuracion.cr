@@ -1,10 +1,15 @@
 class Configuracion
+  getter reglas
   def initialize(@rand : Random = Random::DEFAULT)
     @reglas = [] of Regla
   end
 
   def agregarRegla(regla)
     @reglas<< regla
+  end
+
+  def tiempoMuerto=(unTiempo)
+    UnServidor.tiempoMuerto=unTiempo
   end
 
   def transformar(internet, url)
