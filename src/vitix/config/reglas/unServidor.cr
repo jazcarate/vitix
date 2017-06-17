@@ -5,7 +5,7 @@ class UnServidor
   end
 
   def request(internet, endpoint)
-    respuesta = internet.get(@host + endpoint)
+    respuesta = internet.do(@host, endpoint)
     if respuesta.success?
       Respuesta.new(respuesta.body, respuesta.status_code)
     else

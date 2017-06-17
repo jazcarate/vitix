@@ -6,6 +6,7 @@ class MultiplesServidores
     intentar = RespuestaError.new("No existe server")
     servidoresVivos.each { |servidor|
       intentar = servidor.request(internet, endpoint)
+      break if endpoint.reintentar?
       break unless intentar.is_a? RespuestaError
     }
     return intentar

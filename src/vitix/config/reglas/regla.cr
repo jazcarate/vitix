@@ -3,10 +3,10 @@ class Regla
   end
 
   def puedoRedireccionar?(url)
-    url.starts_with? @de
+    url.empieza_con? @de
   end
 
   def a(internet, url)
-    @a.request(internet, url.lchop @de)
+    @a.request(internet, url.sacar @de)
   end
 end
