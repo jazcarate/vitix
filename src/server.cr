@@ -1,7 +1,9 @@
 require "http/server"
 require "./vitix"
 
-config = ConfigReader.crear_config(File.read "./config.yaml")
+config_path = ARGV.size == 0 ? "./config.yaml" : ARGV[0]
+
+config = ConfigReader.crear_config(File.read config_path)
 tonel = Tonel.new config
 
 server = HTTP::Server.new(8080) do |context|

@@ -1,0 +1,7 @@
+tonel:
+  tiempoMuerto: 20
+  reglas:
+    - desde: /
+      a:
+        - http://localhost:8000
+        - http://localhost:8002
