@@ -240,7 +240,6 @@ Percentage of the requests served within a certain time (ms)
   98%   1049
   99%   1250
  100%   1881 (longest request)
-
 ```
 
 *Vitrix:*
@@ -256,34 +255,33 @@ Document Path:          /?payload=100
 Document Length:        100 bytes
 
 Concurrency Level:      500
-Time taken for tests:   6.432 seconds
+Time taken for tests:   3.425 seconds
 Complete requests:      10000
 Failed requests:        0
 Total transferred:      1400000 bytes
 HTML transferred:       1000000 bytes
-Requests per second:    1554.82 [#/sec] (mean)
-Time per request:       321.581 [ms] (mean)
-Time per request:       0.643 [ms] (mean, across all concurrent requests)
-Transfer rate:          212.57 [Kbytes/sec] received
+Requests per second:    2919.60 [#/sec] (mean)
+Time per request:       171.256 [ms] (mean)
+Time per request:       0.343 [ms] (mean, across all concurrent requests)
+Transfer rate:          399.16 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0  108 327.2      0    3240
-Processing:    35  186 303.0     94    1702
-Waiting:       35  186 303.0     94    1702
-Total:         35  294 555.8     95    4414
+Connect:        0   62 241.8      0    1028
+Processing:    26   84  53.3     79    1029
+Waiting:       26   83  53.3     79    1029
+Total:         26  146 275.3     79    1534
 
 Percentage of the requests served within a certain time (ms)
-  50%     95
-  66%    100
-  75%    113
-  80%    134
-  90%   1108
-  95%   1419
-  98%   2530
-  99%   2696
- 100%   4414 (longest request)
-
+  50%     79
+  66%     86
+  75%     92
+  80%     96
+  90%    119
+  95%   1105
+  98%   1336
+  99%   1376
+ 100%   1534 (longest request)
 ```
 
 ## Caso 3
@@ -297,6 +295,10 @@ Para ejecutarlos se necesita:
 - nginx -c $PWD/caso3/nginx.conf
 - crystal run ../src/server.cr -- $PWD/caso3/config.yaml
 - node server.js
+
+**Nota**
+
+A partir de este caso, nginx tiene que ser ejecutado cambiando el límite de descriptores de archivos abiertos en Linux (`ulimit -n 4096`) o empieza a fallar.
 
 **Resultados**
 
@@ -340,7 +342,6 @@ Percentage of the requests served within a certain time (ms)
   98%   1340
   99%   1467
  100%   1897 (longest request)
-
 ```
 
 *Nginx:*
@@ -348,7 +349,42 @@ Percentage of the requests served within a certain time (ms)
 `ab -n 10000 -c 800 http://127.0.0.1:8001/?payload=500`
 
 ```
-TODO estos tests empiezan a fallar por la cantidad máxima de sockets abiertos
+Server Software:        nginx/1.12.0
+Server Hostname:        127.0.0.1
+Server Port:            8001
+
+Document Path:          /?payload=500
+Document Length:        500 bytes
+
+Concurrency Level:      800
+Time taken for tests:   2.659 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      5970000 bytes
+HTML transferred:       5000000 bytes
+Requests per second:    3761.26 [#/sec] (mean)
+Time per request:       212.695 [ms] (mean)
+Time per request:       0.266 [ms] (mean, across all concurrent requests)
+Transfer rate:          2192.84 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    2   6.9      0      35
+Processing:    17  165 337.7     35    1468
+Waiting:       17  165 337.7     35    1468
+Total:         18  167 337.8     35    1468
+
+Percentage of the requests served within a certain time (ms)
+  50%     35
+  66%     48
+  75%     57
+  80%    106
+  90%   1022
+  95%   1057
+  98%   1096
+  99%   1272
+ 100%   1468 (longest request)
+
 ```
 
 *Vitrix:*
@@ -417,7 +453,41 @@ Para ejecutarlos se necesita:
 `ab -n 10000 -c 800 http://127.0.0.1:8001/?payload=500`
 
 ```
-TODO estos tests empiezan a fallar por la cantidad máxima de sockets abiertos
+Server Software:        nginx/1.12.0
+Server Hostname:        127.0.0.1
+Server Port:            8001
+
+Document Path:          /?payload=500
+Document Length:        500 bytes
+
+Concurrency Level:      800
+Time taken for tests:   1.640 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      5970000 bytes
+HTML transferred:       5000000 bytes
+Requests per second:    6097.22 [#/sec] (mean)
+Time per request:       131.207 [ms] (mean)
+Time per request:       0.164 [ms] (mean, across all concurrent requests)
+Transfer rate:          3554.73 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0   28 157.7      0    1022
+Processing:    15   91 117.1     72    1125
+Waiting:       15   90 117.0     71    1125
+Total:         46  118 197.1     74    1298
+
+Percentage of the requests served within a certain time (ms)
+  50%     74
+  66%     83
+  75%     90
+  80%     97
+  90%    128
+  95%    171
+  98%   1097
+  99%   1104
+ 100%   1298 (longest request)
 ```
 
 *Vitrix:*
@@ -433,31 +503,31 @@ Document Path:          /?payload=500
 Document Length:        500 bytes
 
 Concurrency Level:      800
-Time taken for tests:   4.451 seconds
+Time taken for tests:   3.529 seconds
 Complete requests:      10000
 Failed requests:        0
 Total transferred:      5400000 bytes
 HTML transferred:       5000000 bytes
-Requests per second:    2246.82 [#/sec] (mean)
-Time per request:       356.059 [ms] (mean)
-Time per request:       0.445 [ms] (mean, across all concurrent requests)
-Transfer rate:          1184.85 [Kbytes/sec] received
+Requests per second:    2833.41 [#/sec] (mean)
+Time per request:       282.345 [ms] (mean)
+Time per request:       0.353 [ms] (mean, across all concurrent requests)
+Transfer rate:          1494.18 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0  122 328.8      0    1029
-Processing:    26  139 385.5     75    3419
-Waiting:       26  139 385.6     75    3419
-Total:         26  261 609.8     76    4439
+Connect:        0  127 336.4      0    1037
+Processing:    28  113 195.1     78    1797
+Waiting:       27  113 195.1     77    1797
+Total:         28  240 463.7     79    2830
 
 Percentage of the requests served within a certain time (ms)
-  50%     76
+  50%     79
   66%     90
-  75%    102
-  80%    112
-  90%   1083
-  95%   1144
-  98%   1950
-  99%   4430
- 100%   4439 (longest request)
+  75%    104
+  80%    113
+  90%   1101
+  95%   1149
+  98%   1588
+  99%   2750
+ 100%   2830 (longest request)
 ```
