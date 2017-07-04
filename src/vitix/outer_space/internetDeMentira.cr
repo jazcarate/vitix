@@ -11,7 +11,7 @@ class InternetDeMentira < Internet
   end
 
   def get(url)
-    return HTTP::Client::Response.new(200, @directorio[url]) if @directorio[url]?
-    HTTP::Client::Response.new(404, status_message: "no existe!")
+    return Respuesta.new(@directorio[url], 200) if @directorio[url]?
+    RespuestaError.new("no existe!", 503)
   end
 end

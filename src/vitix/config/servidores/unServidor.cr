@@ -12,13 +12,10 @@ class UnServidor
 
   def request(internet, endpoint)
     respuesta = internet.do(@host, endpoint)
-    if respuesta.success?
-      Respuesta.new(respuesta.body, respuesta.status_code)
-    else
-      puts "Status: #{respuesta.status_code}, mensaje: #{respuesta.status_message}"
+    if !respuesta.success?
       matar
-      RespuestaError.new
     end
+    respuesta
   end
 
   def matar

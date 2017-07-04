@@ -26,9 +26,10 @@ class Internet
 
   macro wrap(accion)
     begin
-      {{accion}}
+      response = {{accion}}
+      Respuesta.new(response.body, response.status_code)
     rescue ex
-      HTTP::Client::Response.new(404, status_message: ex.message)
+      RespuestaError.new("Server unavailable", 503)
     end
   end
 end
