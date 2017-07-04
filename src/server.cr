@@ -9,6 +9,7 @@ tonel = Tonel.new config
 server = HTTP::Server.new(8080) do |context|
   puts "atendiendo coneccion de [#{context.request.method}]#{context.request.resource}"
   respuesta = tonel.transformar Pedido.new context.request.resource, context.request.method, context.request.body
+  context.response.status_code = respuesta.estado
   context.response.print respuesta.contenido
 end
 
